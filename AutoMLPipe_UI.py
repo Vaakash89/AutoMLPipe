@@ -44,24 +44,38 @@ def sel_ml_learning():
 
 def sel_ml_class():
     global sel_ml_class_val
+    dummy_label.grid(row=7, column=1, padx=30, sticky=tk.W)
     if str(var_class.get()) == "1":
         sel_ml_class_val = "regression"
+        clicked = StringVar()
+        clicked.set("Linear Regression")
+
+        options = [
+            "Linear Regression",
+            "XGBoost"
+        ]
+
+        ml_model_drop = OptionMenu(root, clicked, *options, command=set_model)
+        ml_model_drop.grid(row=7, column=1, padx=30, sticky=tk.W)
+
     elif str(var_class.get()) == "2":
         sel_ml_class_val = "classification"
+        clicked = StringVar()
+        clicked.set("Logistic Regression")
+
+        options = [
+            "Logistic Regression",
+            "SVM",
+            "Naive Bayes"
+        ]
+
+        ml_model_drop = OptionMenu(root, clicked, *options, command=set_model)
+        ml_model_drop.grid(row=7, column=1, padx=30, sticky=tk.W)
 
     ml_model_label = Label(root, text="ML Model:", font=("Arial", 13), anchor="e", width=30)
     ml_model_label.grid(row=7, pady=20)
 
-    clicked = StringVar()
-    clicked.set("Linear Regression")
 
-    options = [
-        "Linear Regression",
-        "Logistic Regression"
-    ]
-
-    ml_model_drop = OptionMenu(root, clicked, *options, command=set_model)
-    ml_model_drop.grid(row=7, column=1, padx=30, sticky=tk.W)
 
 
 def set_model(value):
@@ -86,6 +100,9 @@ def set_column(value):
 
 root = Tk()
 root.geometry("700x1000")
+
+dummy_label = Label(root, text="")
+
 line_dummy = Label(root, text="---------------------------------------------------------------", font=("Arial", 15), anchor="e", width=30)
 line_dummy.grid(row=0, columnspan=4)
 
