@@ -84,6 +84,7 @@ def set_model(value):
     col_label = Label(root, text="Choose the Prediction Label:", font=("Arial", 13), anchor="e", width=30)
     col_label.grid(row=8)
 
+    dummy_label.grid(row=8, column=1, padx=30, sticky=tk.W)
     pred_col = StringVar()
     pred_col.set("Choose column")
 
