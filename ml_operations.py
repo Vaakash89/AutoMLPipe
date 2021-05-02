@@ -23,8 +23,9 @@ def fit_model(model, x_train, y_train):
 def save_model(model):
     pickle.dump(model, open("model.pkl", 'wb'))
 
-def add(filename, sel_ml_learning_val, sel_ml_class_val, algo, column_pred):
+def add(filename, sel_ml_learning_val, sel_ml_class_val, algo, column_pred, root):
 
+    root.destroy()
     #Download Data
     df = download_data(filename)
     X = df.drop(column_pred, axis=1)
@@ -44,17 +45,18 @@ def add(filename, sel_ml_learning_val, sel_ml_class_val, algo, column_pred):
     #Confusion Matrix
     predictions = model.predict(x_test)
     cm = metrics.confusion_matrix(y_test, predictions)
-    plt.figure(figsize=(9, 9))
+    plt.figure(figsize=(3, 3))
+    plt.rcParams.update({'font.size': 5})
     sns_plot = sns.heatmap(cm, annot=True, fmt=".3f", linewidths=.5, square=True, cmap='Blues_r')
     plt.ylabel('Actual label')
     plt.xlabel('Predicted label')
     all_sample_title = 'Accuracy Score: {0}'.format(score)
-    plt.title(all_sample_title, size=15)
+    plt.title(all_sample_title, size=8)
     plt.savefig("output.png")
 
     #Save Model
     save_model(model)
 
-    show_UI()
+    show_UI(score)
 
     print("Done")

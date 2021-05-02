@@ -125,7 +125,7 @@ R1.grid(row=3, column=1, padx=30, sticky=tk.W)
 R2 = Radiobutton(root, text="Unsupervised Learning", variable=var, value=2, command=sel_ml_learning, anchor="w")
 R2.grid(row=4, column=1, padx=30, sticky=tk.W)
 
-button = Button(root, text='Train Model', command=lambda: add(filename, sel_ml_learning_val, sel_ml_class_val, model, column_pred),  anchor='center', width=30)
+button = Button(root, text='Train Model', command=lambda: add(filename, sel_ml_learning_val, sel_ml_class_val, model, column_pred, root),  anchor='center', width=30)
 button.grid(row=15, column=1, columnspan=3, pady=30, sticky=tk.W)
 
 root.mainloop()
