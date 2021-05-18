@@ -48,7 +48,7 @@ def sel_ml_class():
     if str(var_class.get()) == "1":
         sel_ml_class_val = "regression"
         clicked = StringVar()
-        clicked.set("Linear Regression")
+        clicked.set("Choose one")
 
         options = [
             "Linear Regression",
@@ -61,11 +61,10 @@ def sel_ml_class():
     elif str(var_class.get()) == "2":
         sel_ml_class_val = "classification"
         clicked = StringVar()
-        clicked.set("Logistic Regression")
+        clicked.set("Choose one")
 
         options = [
             "Logistic Regression",
-            "SVM",
             "Naive Bayes"
         ]
 

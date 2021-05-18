@@ -4,16 +4,16 @@ from PIL import ImageTk, Image
 
 def build_UI(root, score):
     train_msg = Label(root, text="Training Done!", font=("Arial", 15), width=30)
-    train_msg.grid(row=3, column=2, pady=10)
+    train_msg.grid(row=4, column=2, pady=10)
 
     accuracy_lable = Label(root, text="Accuracy: "+str(score), font=("Arial", 12), anchor='w', width=30)
-    accuracy_lable.grid(row=4, column=2, pady=10)
+    accuracy_lable.grid(row=5, column=2, pady=10)
 
     image = Image.open("output.png")
     photo = ImageTk.PhotoImage(image, master=root)
     label_pic = Label(root, image=photo)
     label_pic.image = photo
-    label_pic.grid(row=5, column=0)
+    label_pic.grid(row=6, column=0)
 
 def bar(tk, progress, score):
     import time
@@ -38,9 +38,13 @@ def show_UI(score):
     progress = Progressbar(root, orient=HORIZONTAL, length=500, mode='determinate')
     progress.grid(row=1, column=0, columnspan=3, padx=30, pady=20)
 
-    button = Button(root, text='Generate Training Result',
+    button_generate = Button(root, text='Generate Training Result',
                     command=lambda: bar(root, progress, score), width=30)
-    button.grid(row=2, column=0, columnspan=3, pady=10)
+    button_generate.grid(row=2, column=0, columnspan=3, pady=10)
+
+    button_exit = Button(root, text='Exit',
+                    command=root.destroy, width=30)
+    button_exit.grid(row=3, column=0, columnspan=3, pady=10)
     root.mainloop()
 
     '''   

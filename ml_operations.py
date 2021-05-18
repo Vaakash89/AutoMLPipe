@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression, LinearRegression
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn import metrics
@@ -14,7 +14,9 @@ def download_data(filename):
 def create_model_object(algo):
     if algo == "Logistic Regression":
         model = LogisticRegression()
-        return model
+    elif algo == "Linear Regression":
+        model = LinearRegression()
+    return model
 
 def fit_model(model, x_train, y_train):
     model.fit(x_train, y_train)
@@ -42,18 +44,28 @@ def add(filename, sel_ml_learning_val, sel_ml_class_val, algo, column_pred, root
 
     score = model.score(x_test, y_test)
 
-    #Confusion Matrix
+    #Get Prediction
     predictions = model.predict(x_test)
-    cm = metrics.confusion_matrix(y_test, predictions)
-    plt.figure(figsize=(3, 3))
-    plt.rcParams.update({'font.size': 5})
-    sns_plot = sns.heatmap(cm, annot=True, fmt=".3f", linewidths=.5, square=True, cmap='Blues_r')
-    plt.ylabel('Actual label')
-    plt.xlabel('Predicted label')
-    all_sample_title = 'Accuracy Score: {0}'.format(score)
-    plt.title(all_sample_title, size=8)
-    plt.savefig("output.png")
 
+    if algo == "Logistic Regression":
+        # Confusion Matrix
+        cm = metrics.confusion_matrix(y_test, predictions)
+        plt.figure(figsize=(3, 3))
+        plt.rcParams.update({'font.size': 5})
+        sns_plot = sns.heatmap(cm, annot=True, fmt=".3f", linewidths=.5, square=True, cmap='Blues_r')
+        plt.ylabel('Actual label')
+        plt.xlabel('Predicted label')
+        all_sample_title = 'Accuracy Score: {0}'.format(score)
+        plt.title(all_sample_title, size=8)
+        plt.savefig("output.png")
+    elif algo == "Linear Regression":
+        plt.figure(figsize=(3, 3))
+        plt.rcParams.update({'font.size': 5})
+        plt.plot(range(1, len(y_train) + 1), y_train, color="red", label="Real Values")
+        plt.plot(range(1, len(y_train) + 1), model.predict(x_train), color="green",
+                                  label="Predicted Values")
+        plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc='lower left', ncol=2, mode="expand", borderaxespad=0.)
+        plt.savefig("output.png")
     #Save Model
     save_model(model)
 
