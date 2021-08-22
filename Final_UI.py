@@ -5,22 +5,26 @@ import tkinter as tk
 
 final_split = 0.01
 
-def build_UI(root, score, train_msg):
+def build_UI(root, sel_ml_learning_val, score, train_msg):
     train_msg.config(text = "Training Done")
+    if (sel_ml_learning_val == "supervised"):
+        accuracy_lable = Label(root, text="Accuracy: "+str(score), font=("Arial", 12), anchor='w', width=30)
+        accuracy_lable.grid(row=8, column=2, pady=10)
 
-    accuracy_lable = Label(root, text="Accuracy: "+str(score), font=("Arial", 12), anchor='w', width=30)
-    accuracy_lable.grid(row=8, column=2, pady=10)
+    if(sel_ml_learning_val == "unsupervised"):
+        label1 = Label(root, text="Clustering done, output saved in cluster.csv file: " + str(score), font=("Arial", 9), anchor='w', width=30)
+        label1.grid(row=8, column=0, columnspan=2, pady=10)
 
     image = Image.open("output.png")
     photo = ImageTk.PhotoImage(image, master=root)
     label_pic = Label(root, image=photo)
     label_pic.image = photo
-    label_pic.grid(row=9, column=0)
+    label_pic.grid(row=9, column=0, columnspan=3)
 
 def set_split(value):
     print(value)
 
-def show_UI(score):
+def show_UI(sel_ml_learning_val, score):
     print(score)
     root = Tk()
     root.geometry("700x700")
@@ -45,29 +49,11 @@ def show_UI(score):
     time.sleep(1)
     progress['value']=100
 
-    build_UI(root, score, train_msg)
+    build_UI(root, sel_ml_learning_val, score, train_msg)
 
     button_exit = Button(root, text='Exit',
                     command=root.destroy, width=30)
     button_exit.grid(row=6, column=0, columnspan=3, pady=10)
     root.mainloop()
 
-    '''   
-    root = TopLevel()
-     #image = Image.open("output.png")
-     #photo = ImageTk.PhotoImage(image)
- 
-     progress = Progressbar(root, orient=HORIZONTAL, length=100, mode='determinate')
- 
-     button = Button(root, text='Train Model',
-                     command=lambda: bar(root, progress),
-                     anchor='center', width=30)
-     button.grid(row=1, columnspan=2)
-     root.mainloop()
- 
- 
-     label = Label(root, image=photo)
-     label.image = photo
-     label.grid(row=2, column=0)
-    '''
 
